@@ -5,11 +5,12 @@ function getToken() {
   // You should implement the logic to retrieve your token here
   // For example, from localStorage:
   //return localStorage.getItem('token');
-  return '4|MFL64QFz6upKHshKp5YJTkIo8QLcX9xbblZPllmS30a6ed96';
+  return '8|DC9SgiKR657wV8bdOmuWeOJClblbPu1KxXrG3LuF01ba809a';
 }
 
 async function fetchWithToken(url, options = {}) {
   const token = getToken();
+  console.log('token', token);
   if (!token) {
     console.error('Token not found');
     return;
@@ -19,6 +20,7 @@ async function fetchWithToken(url, options = {}) {
   headers.append('Authorization', `Bearer ${token}`);
   headers.append('Accept', 'application/json');
   headers.append('Content-Type', 'application/json');
+  console.log('headers', headers);
 
   const response = await fetch(url, {
     ...options,
@@ -48,7 +50,9 @@ export const apiService = {
   async deleteSnippet(id) {
     try {
       const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-      return await fetchWithToken(`${baseUrl}snippets/${id}`);
+      return await fetchWithToken(`${baseUrl}snippets/${id}`, {
+        method: 'DELETE',
+      });
     } catch (err) {
       throw new Error('Failed to delete snippet');
     }

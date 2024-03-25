@@ -9,7 +9,8 @@ import {
 } from './ui/card';
 import { Button } from './ui/button';
 import Modal from './Modal';
-import { Toaster } from 'sonner';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Snippet {
   id: string;
@@ -56,9 +57,14 @@ export default function Snippet() {
       setSnippets(prevState =>
         prevState.filter(snippet => snippet.id !== snippetId)
       );
-      setDeleteSuccess(true);
+      toast.success('Snippet deleted successfully!', {
+        position: 'top-center',
+      });
     } catch (error) {
       console.error('Error deleting snippet:', error);
+      toast.error('Failed to delete snippet. Please try again.', {
+        position: 'top-center',
+      });
     }
   };
 
@@ -99,6 +105,7 @@ export default function Snippet() {
       <div className='grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 h-auto max-w-screen-2xl 2xl:p-8 px-2 py-8 overflow-x-auto justify-between gap-8 top-0 mx-auto'>
         {cards}
       </div>
+      <ToastContainer />
     </div>
   );
 }

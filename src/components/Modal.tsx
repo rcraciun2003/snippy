@@ -11,7 +11,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-
 interface ModalProps {
   isVisible: boolean;
   onClose: () => void;
